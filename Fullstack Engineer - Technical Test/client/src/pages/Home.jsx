@@ -31,19 +31,19 @@ export default function Home() {
         <div class="container px-4 sm:px-8 lg:px-16 xl:px-20 mx-auto">
           <div className="hero-wrapper grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
             <div className="hero-text col-span-6">
-              <h1 className=" font-bold text-4xl md:text-5xl max-w-xl text-gray-900 leading-tight">
+              <h1 className=" font-bold text-4xl md:text-5xl max-w-xl text-yellow-500 leading-tight">
                 Looking for affordable stuff ? We can help you !
               </h1>
-              <p className="text-gray-800 text-base leading-relaxed mt-6 font-semibold">
+              <p className="text-gray-800 text-base leading-relaxed mt-6 mb-6 font-semibold">
                 Your ultimate cute staff companion. Carries all the suppa cute
                 and affordable stuff to suits your need.
               </p>
               <div className="flex space-x-5 mt-10 justify-center md:justify-start">
                 <Link
-                  to="/"
+                  to="/search"
                   className="bg-yellow-500 hover:bg-yellow-600 text-white shadow-md px-3 py-2 rounded-lg flex items-center"
                 >
-                  See Details
+                  Search Product
                 </Link>
               </div>
             </div>

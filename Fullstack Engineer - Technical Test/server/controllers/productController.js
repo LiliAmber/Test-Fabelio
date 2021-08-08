@@ -2,15 +2,30 @@ const { Product } = require("../models");
 const productSearch = require("../helper/finder");
 
 class ProductController {
+  static async getProducts(req, res, next) {
+    try {
+      //==initial data==
+      let data = await Product.findAll();
+      res.status(200).json(data);
+    } catch (error) {
+      res.status(500).json({ message: "internal server error" });
+    }
+  }
+
   static async getAll(req, res, next) {
     try {
       //==initial data==
       let data = await Product.findAll();
       //==randomizer to display data===
       let randomizer = Math.floor(Math.random() * data.length);
+      console.log(randomizer);
       //==set data to display==
       let display = await Product.findOne({ where: { id: randomizer } });
-      res.status(200).json(display);
+      if (display) {
+        res.status(200).json(display);
+      } else {
+        res.status(400).json({ message: "click again to see our products :)" });
+      }
     } catch (error) {
       res.status(500).json({ message: "internal server error" });
     }
@@ -30,6 +45,7 @@ class ProductController {
         res.status(400).json({ message: "input can't be empty!" });
       }
     } catch (error) {
+      // console.log(error);
       res.status(500).json({ message: "internal server error" });
     }
   }

@@ -1,7 +1,13 @@
 import axios from "axios";
-import { SHOW_PRODUCTS, SHOW_LOADING, SHOW_ERROR } from "./actionType";
+import {
+  SHOW_PRODUCTS,
+  SHOW_FOUNDED,
+  SHOW_LOADING,
+  SHOW_ERROR,
+  SHOW_ALL,
+} from "./actionType";
 
-let baseUrl = "http://localhost:3000";
+let baseUrl = "https://testfabeliorara.herokuapp.com";
 
 export function setProducts(payload) {
   return {
@@ -10,6 +16,19 @@ export function setProducts(payload) {
   };
 }
 
+export function setFound(payload) {
+  return {
+    type: SHOW_FOUNDED,
+    payload,
+  };
+}
+
+export function setAll(payload) {
+  return {
+    type: SHOW_ALL,
+    payload,
+  };
+}
 export function setLoading(payload) {
   return {
     type: SHOW_LOADING,
@@ -31,8 +50,46 @@ export function fetchProduct() {
         method: "GET",
         url: `${baseUrl}/products`,
       });
-      console.log(data);
+      // console.log(data, "<<<<fetch");
       dispatch(setProducts(data));
+    } catch (error) {
+      dispatch(setError(error));
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+}
+
+export function fetchSearch(keyword) {
+  return async (dispatch) => {
+    try {
+      let { data } = await axios({
+        method: "POST",
+        data: {
+          productName: keyword.productName,
+        },
+        url: `${baseUrl}/products`,
+      });
+      console.log(data, "<<<<fetch");
+      dispatch(setFound(data));
+      // dispatch(fetchProduct());
+    } catch (error) {
+      dispatch(setError(error));
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+}
+
+export function fetchAll() {
+  return async (dispatch) => {
+    try {
+      let { data } = await axios({
+        method: "GET",
+        url: `${baseUrl}/products/all`,
+      });
+      console.log(data, "<<<<fetchALl");
+      dispatch(setAll(data));
     } catch (error) {
       dispatch(setError(error));
     } finally {
